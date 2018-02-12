@@ -1,14 +1,17 @@
 package pathfinding; //Organized group of classes named pathfinding
 
 import java.util.ArrayList; //Imports the ArrayList package from the java.util library
+import java.util.Scanner;;
 
 public class Path
 {
 	
-	int gridsize = 6;
-	//Initialize Integer for the gridsize, cana be changed to determine the Square size of the gameboard
+	int gridsize = 7;
+	//Initialize Integer for the gridsize, can be changed to determine the Square size of the gameboard
 	ArrayList<Node> nodes = new ArrayList<Node>();
 	//Create an ArrayList named nodes that contains Node objects to fill gameboard.
+	String move = "";
+	
 	public Path()
 	{
 		Node[][] grid = new Node[gridsize][gridsize];
@@ -34,7 +37,7 @@ public class Path
 		 */
 		
 		
-		Node tuna = new Node(5,5,"Tuna ");
+		Node tuna = new Node(3,3,"Tuna ");
 		Node shark = new Node(0,0,"Shark");
 		
 		grid[tuna.getX()][tuna.getY()] = tuna;
@@ -48,39 +51,31 @@ public class Path
 		 * The shark and tuna get placed in the gameboard with their location determined...
 		 * by the Node objects stored x and y value.
 		 */
-		int i = 0;
-		while((!((shark.getX()==tuna.getX())&&(shark.getY()==tuna.getY())))&&(i<6))
+		
+		while(!((shark.getX()==tuna.getX())&&(shark.getY()==tuna.getY())))
 		{
 		
 		if((tuna.getX()>shark.getX()))
 		{
 			
 			shark.changeX(shark.getX()+1);
-			tuna.changeX(tuna.getY()-1);
 			grid[shark.getX()-1][shark.getY()]= new Node(shark.getX()-1,shark.getY(),"Ocean");
-			grid[tuna.getX()+1][tuna.getY()]= new Node(tuna.getX()+1,tuna.getY(),"Ocean");
 		
 		}
 		else if((tuna.getX()<shark.getX()))
 		{
 			shark.changeX(shark.getX()-1);
-			tuna.changeX(tuna.getY()+1);
 			grid[shark.getX()+1][shark.getY()]= new Node(shark.getX()+1,shark.getY(),"Ocean");
-			grid[tuna.getX()-1][tuna.getY()]= new Node(tuna.getX()-1,tuna.getY(),"Ocean");
 		}
 		if((tuna.getY()>shark.getY()))
 		{
 			shark.changeY(shark.getY()+1);
-			tuna.changeY(tuna.getY()-1);
 			grid[shark.getX()][shark.getY()-1]= new Node(shark.getX(),shark.getY()-1,"Ocean");
-			grid[tuna.getX()][tuna.getY()+1]= new Node(tuna.getX(),tuna.getY()+1,"Ocean");
 		}
 		else if((tuna.getY()<shark.getY()))
 		{
 			shark.changeY(shark.getY()-1);
-			tuna.changeY(tuna.getY()+1);
 			grid[shark.getX()][shark.getY()+1]= new Node(shark.getX(),shark.getY()+1,"Ocean");
-			grid[tuna.getX()][tuna.getY()-1]= new Node(tuna.getX(),tuna.getY()-1,"Ocean");
 		}
 		/*
 		 * Algorithm to allow the shark to move closer to the tuna determined by the...
@@ -103,7 +98,7 @@ public class Path
 		 * When the move has been completed the 2D array grid gets updated
 		 * and stores the tuna and shark Node objects.
 		 */
-		
+		System.out.println("Robot's Move...");
 		for(int m = 0;m<gridsize;m++)
 		{
 			for(int n = 0;n<gridsize;n++)
@@ -116,14 +111,63 @@ public class Path
 		 * Prints out all the strings contained in the Node objects which are...
 		 * stored in the 2D array grid.
 		 */
-		System.out.println();
-		//Prints a line between turns for readablity.
-		i++;
-		}
+		System.out.println("Your Move...");
+
+		Scanner scan = new Scanner(System.in);
+		String move = scan.next();
+			if(move.equals("TL")) {
+				tuna.changeX(tuna.getX()+1);
+				tuna.changeY(tuna.getY()+1);
+				grid[tuna.getX()-1][tuna.getY()-1]= new Node(tuna.getX()-1,tuna.getY()-1,"Ocean");
+			}
+			else if(move.equals("T")) {
+				tuna.changeY(tuna.getY()+1);
+				grid[tuna.getX()][tuna.getY()-1]= new Node(tuna.getX(),tuna.getY()-1,"Ocean");
+			}
+			else if(move.equals("TR")) {
+				tuna.changeX(tuna.getX()+1);
+				tuna.changeY(tuna.getY()+1);
+				grid[tuna.getX()-1][tuna.getY()-1]= new Node(tuna.getX()-1,tuna.getY()-1,"Ocean");
+			}
+			else if(move.equals("L")) {
+				tuna.changeY(tuna.getX()-1);
+				grid[tuna.getX()+1][tuna.getY()]= new Node(tuna.getX()+1,tuna.getY(),"Ocean");
+			}
+			else if(move.equals("R")) {
+				tuna.changeY(tuna.getX()+1);
+				grid[tuna.getX()-1][tuna.getY()-1]= new Node(tuna.getX()-1,tuna.getY(),"Ocean");
+			}
+			else if(move.equals("BL")) {
+				tuna.changeX(tuna.getX()-1);
+				tuna.changeY(tuna.getY()-1);
+				grid[tuna.getX()+1][tuna.getY()+1]= new Node(tuna.getX()+1,tuna.getY()+1,"Ocean");
+			}
+			else if(move.equals("B")) {
+				tuna.changeY(tuna.getY()-1);
+				grid[tuna.getX()][tuna.getY()+1]= new Node(tuna.getX(),tuna.getY()+1,"Ocean");
+			}
+			else if(move.equals("BR")) {
+				tuna.changeX(tuna.getX()+1);
+				tuna.changeY(tuna.getY()-1);
+				grid[tuna.getX()-1][tuna.getY()+1]= new Node(tuna.getX()-1,tuna.getY()+1,"Ocean");
+			}
+			
+			grid[tuna.getX()][tuna.getY()] = tuna;
+			grid[shark.getX()][shark.getY()] = shark;	
+			for(int m = 0;m<gridsize;m++)
+			{
+				for(int n = 0;n<gridsize;n++)
+				{
+					System.out.print(grid[m][n].getName() + " ");
+				}
+				System.out.println();
+			}
+			
+			
+			}
+		
 		
 		}
-		
-		
 	
 		
 	
