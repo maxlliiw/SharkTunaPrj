@@ -5,7 +5,7 @@ import java.util.ArrayList; //Imports the ArrayList package from the java.util l
 public class Path
 {
 	
-	int gridsize = 4;
+	int gridsize = 6;
 	//Initialize Integer for the gridsize, cana be changed to determine the Square size of the gameboard
 	ArrayList<Node> nodes = new ArrayList<Node>();
 	//Create an ArrayList named nodes that contains Node objects to fill gameboard.
@@ -34,7 +34,7 @@ public class Path
 		 */
 		
 		
-		Node tuna = new Node(3,3,"Tuna ");
+		Node tuna = new Node(5,5,"Tuna ");
 		Node shark = new Node(0,0,"Shark");
 		
 		grid[tuna.getX()][tuna.getY()] = tuna;
@@ -48,31 +48,39 @@ public class Path
 		 * The shark and tuna get placed in the gameboard with their location determined...
 		 * by the Node objects stored x and y value.
 		 */
-		
-		while(!((shark.getX()==tuna.getX())&&(shark.getY()==tuna.getY())))
+		int i = 0;
+		while((!((shark.getX()==tuna.getX())&&(shark.getY()==tuna.getY())))&&(i<6))
 		{
 		
 		if((tuna.getX()>shark.getX()))
 		{
 			
 			shark.changeX(shark.getX()+1);
+			tuna.changeX(tuna.getY()-1);
 			grid[shark.getX()-1][shark.getY()]= new Node(shark.getX()-1,shark.getY(),"Ocean");
+			grid[tuna.getX()+1][tuna.getY()]= new Node(tuna.getX()+1,tuna.getY(),"Ocean");
 		
 		}
 		else if((tuna.getX()<shark.getX()))
 		{
 			shark.changeX(shark.getX()-1);
+			tuna.changeX(tuna.getY()+1);
 			grid[shark.getX()+1][shark.getY()]= new Node(shark.getX()+1,shark.getY(),"Ocean");
+			grid[tuna.getX()-1][tuna.getY()]= new Node(tuna.getX()-1,tuna.getY(),"Ocean");
 		}
 		if((tuna.getY()>shark.getY()))
 		{
 			shark.changeY(shark.getY()+1);
+			tuna.changeY(tuna.getY()-1);
 			grid[shark.getX()][shark.getY()-1]= new Node(shark.getX(),shark.getY()-1,"Ocean");
+			grid[tuna.getX()][tuna.getY()+1]= new Node(tuna.getX(),tuna.getY()+1,"Ocean");
 		}
 		else if((tuna.getY()<shark.getY()))
 		{
 			shark.changeY(shark.getY()-1);
+			tuna.changeY(tuna.getY()+1);
 			grid[shark.getX()][shark.getY()+1]= new Node(shark.getX(),shark.getY()+1,"Ocean");
+			grid[tuna.getX()][tuna.getY()-1]= new Node(tuna.getX(),tuna.getY()-1,"Ocean");
 		}
 		/*
 		 * Algorithm to allow the shark to move closer to the tuna determined by the...
@@ -110,10 +118,12 @@ public class Path
 		 */
 		System.out.println();
 		//Prints a line between turns for readablity.
-		
+		i++;
 		}
 		
 		}
+		
+		
 	
 		
 	
