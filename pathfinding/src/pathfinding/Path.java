@@ -147,8 +147,9 @@ public class Path
 				//Bottom Right
 			}
 			else if(move.equals("TR")) {
-				tuna.changeY(tuna.getX()-1);
-				grid[tuna.getX()+1][tuna.getY()]= new Node(tuna.getX()+1,tuna.getY(),"Ocean");
+				tuna.changeY(tuna.getY()+1);
+				tuna.changeX(tuna.getX()-1);
+				grid[tuna.getX()+1][tuna.getY()-1]= new Node(tuna.getX()+1,tuna.getY()-1,"Ocean");
 				//Top Right
 			}
 			else if(move.equals("R")) {
