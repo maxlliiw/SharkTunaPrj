@@ -11,6 +11,7 @@ public class Path
 	ArrayList<Node> nodes = new ArrayList<Node>();
 	//Create an ArrayList named nodes that contains Node objects to fill gameboard.
 	String move = "";
+	private Scanner scan;
 	
 	public Path()
 	{
@@ -113,15 +114,15 @@ public class Path
 		 */
 		System.out.println("Your Move...");
 
-		Scanner scan = new Scanner(System.in);
-		String move = scan.next();
+		scan = new Scanner(System.in);
+		move = scan.nextLine();
 			if(move.equals("TL")) {
 				tuna.changeX(tuna.getX()+1);
 				tuna.changeY(tuna.getY()+1);
 				grid[tuna.getX()-1][tuna.getY()-1]= new Node(tuna.getX()-1,tuna.getY()-1,"Ocean");
 			}
 			else if(move.equals("T")) {
-				tuna.changeY(tuna.getY()+1);
+				tuna.changeY(tuna.getX()+1);
 				grid[tuna.getX()][tuna.getY()-1]= new Node(tuna.getX(),tuna.getY()-1,"Ocean");
 			}
 			else if(move.equals("TR")) {
@@ -151,7 +152,7 @@ public class Path
 				tuna.changeY(tuna.getY()-1);
 				grid[tuna.getX()-1][tuna.getY()+1]= new Node(tuna.getX()-1,tuna.getY()+1,"Ocean");
 			}
-			
+			//Look at the screenshot you took to fix this boiiii.
 			grid[tuna.getX()][tuna.getY()] = tuna;
 			grid[shark.getX()][shark.getY()] = shark;	
 			for(int m = 0;m<gridsize;m++)
@@ -173,10 +174,10 @@ public class Path
 	
 	public static void main(String[] args)
 	 /*
-	   *Creates a method named main that is accessable in the package movietest
+	   *Creates a method named main that is accessible in the package movietest
 	   *Method is class related
 	   *Method does not return any value
-	   *Contains a paramater of an String array type called args
+	   *Contains a parameter of an String array type called args
 	   */
 	{
 		Path way = new Path();
