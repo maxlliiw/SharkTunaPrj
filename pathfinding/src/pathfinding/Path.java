@@ -52,6 +52,15 @@ public class Path
 		 * The shark and tuna get placed in the gameboard with their location determined...
 		 * by the Node objects stored x and y value.
 		 */
+		System.out.println("Starting Board");
+		for(int m = 0;m<gridsize;m++)
+		{
+			for(int n = 0;n<gridsize;n++)
+			{
+				System.out.print(grid[m][n].getName() + " ");
+			}
+			System.out.println();
+		}
 		
 		while(!((shark.getX()==tuna.getX())&&(shark.getY()==tuna.getY())))
 		{
@@ -90,7 +99,6 @@ public class Path
 		 * Needs logic bounds for the Shark and Tuna so the Node objects int x, and int y aren't...
 		 * out of bounds for the 2D array grid once the Tuna starts to move.
 		 * 
-		 * Needs Algorithm so the Tuna can move.
 		 */
 		
 		grid[tuna.getX()][tuna.getY()] = tuna;
@@ -116,45 +124,71 @@ public class Path
 
 		scan = new Scanner(System.in);
 		move = scan.nextLine();
-			if(move.equals("TL")) {
-				tuna.changeX(tuna.getX()+1);
-				tuna.changeY(tuna.getY()+1);
-				grid[tuna.getX()-1][tuna.getY()-1]= new Node(tuna.getX()-1,tuna.getY()-1,"Ocean");
-			}
-			else if(move.equals("T")) {
-				tuna.changeY(tuna.getX()+1);
-				grid[tuna.getX()][tuna.getY()-1]= new Node(tuna.getX(),tuna.getY()-1,"Ocean");
-			}
-			else if(move.equals("TR")) {
-				tuna.changeX(tuna.getX()+1);
-				tuna.changeY(tuna.getY()+1);
-				grid[tuna.getX()-1][tuna.getY()-1]= new Node(tuna.getX()-1,tuna.getY()-1,"Ocean");
-			}
-			else if(move.equals("L")) {
-				tuna.changeY(tuna.getX()-1);
-				grid[tuna.getX()+1][tuna.getY()]= new Node(tuna.getX()+1,tuna.getY(),"Ocean");
-			}
-			else if(move.equals("R")) {
-				tuna.changeY(tuna.getX()+1);
-				grid[tuna.getX()-1][tuna.getY()-1]= new Node(tuna.getX()-1,tuna.getY(),"Ocean");
-			}
-			else if(move.equals("BL")) {
-				tuna.changeX(tuna.getX()-1);
-				tuna.changeY(tuna.getY()-1);
-				grid[tuna.getX()+1][tuna.getY()+1]= new Node(tuna.getX()+1,tuna.getY()+1,"Ocean");
+			if(move.equals("")) {
+				tuna.changeX(tuna.getX());
+				tuna.changeY(tuna.getY());
+				//Does not move
 			}
 			else if(move.equals("B")) {
-				tuna.changeY(tuna.getY()-1);
-				grid[tuna.getX()][tuna.getY()+1]= new Node(tuna.getX(),tuna.getY()+1,"Ocean");
+				tuna.changeX(tuna.getX()+1);
+				grid[tuna.getX()-1][tuna.getY()]= new Node(tuna.getX()-1,tuna.getY(),"Ocean");
+				//Bottom
+				
+			}
+			else if(move.equals("T")) {
+				tuna.changeX(tuna.getX()-1);
+				grid[tuna.getX()+1][tuna.getY()]= new Node(tuna.getX()+1,tuna.getY(),"Ocean");
+				//Top				
 			}
 			else if(move.equals("BR")) {
 				tuna.changeX(tuna.getX()+1);
+				tuna.changeY(tuna.getY()+1);
+				grid[tuna.getX()-1][tuna.getY()-1]= new Node(tuna.getX()-1,tuna.getY()-1,"Ocean");
+				//Bottom Right
+			}
+			else if(move.equals("TR")) {
+				tuna.changeY(tuna.getX()-1);
+				grid[tuna.getX()+1][tuna.getY()]= new Node(tuna.getX()+1,tuna.getY(),"Ocean");
+				//Top Right
+			}
+			else if(move.equals("R")) {
+				tuna.changeY(tuna.getY()+1);
+				grid[tuna.getX()][tuna.getY()-1]= new Node(tuna.getX(),tuna.getY()-1,"Ocean");
+				//Right
+			}
+			else if(move.equals("TL")) {
+				tuna.changeX(tuna.getX()-1);
+				tuna.changeY(tuna.getY()-1);
+				grid[tuna.getX()+1][tuna.getY()+1]= new Node(tuna.getX()+1,tuna.getY()+1,"Ocean");
+				//Top Left
+			}
+			else if(move.equals("L")) {
+				tuna.changeY(tuna.getY()-1);
+				grid[tuna.getX()][tuna.getY()+1]= new Node(tuna.getX(),tuna.getY()+1,"Ocean");
+				//Left
+			}
+			else if(move.equals("BL")) {
+				tuna.changeX(tuna.getX()+1);
 				tuna.changeY(tuna.getY()-1);
 				grid[tuna.getX()-1][tuna.getY()+1]= new Node(tuna.getX()-1,tuna.getY()+1,"Ocean");
+				//Bottom Left
 			}
-			//Look at the screenshot you took to fix this boiiii.
+			else
+			{
+				System.out.println("Invalid Move Tuna Remains In Same Position...");
+				tuna.changeX(tuna.getX());
+				tuna.changeY(tuna.getY());
+				//Does not move
+			}
+			/*
+			 * Controller for the Tuna object so the user can use a String input read by the Scanner object
+			 * scan to return the String which is then compared with a String for one of the moves to return a
+			 * boolean to satisfy a if then statement.
+			 */
 			grid[tuna.getX()][tuna.getY()] = tuna;
-			grid[shark.getX()][shark.getY()] = shark;	
+			grid[shark.getX()][shark.getY()] = shark;
+			//Changes the Tuna and shark positions on the gameboard grid.
+			
 			for(int m = 0;m<gridsize;m++)
 			{
 				for(int n = 0;n<gridsize;n++)
@@ -163,14 +197,13 @@ public class Path
 				}
 				System.out.println();
 			}
-			
-			
+			/*
+			 * Prints out all the strings contained in the Node objects which are...
+			 * stored in the 2D array grid.
+			 */		
 			}
-		
-		
+			
 		}
-	
-		
 	
 	public static void main(String[] args)
 	 /*
