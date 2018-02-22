@@ -52,6 +52,19 @@ public class Path
 		 * The shark and tuna get placed in the gameboard with their location determined...
 		 * by the Node objects stored x and y value.
 		 */
+		System.out.println("Controls for Shark v. Tuna \n"
+				+ "TL - Moves Tuna to the Top Left \n"
+				+ "T  - Moves Tuna to the Top \n"
+				+ "TR - Moves Tuna to the Top Right \n"
+				+ "L  - Moves Tuna to the Left \n"
+				+ "R  - Moves Tuna to the Right \n"
+				+ "BL - Moves Tuna to the Bottom Left \n"
+				+ "B  - Moves Tuna to the Bottom \n"
+				+ "BR - Moves Tuna to the Bottom Right \n"
+				+ "Any blank or incorrect entry will have the Tuna remain in the same position.\n");
+		/*
+		 * List of controls for the User
+		 */
 		System.out.println("Starting Board");
 		for(int m = 0;m<gridsize;m++)
 		{
@@ -123,7 +136,7 @@ public class Path
 		System.out.println("Your Move...");
 
 		scan = new Scanner(System.in);
-		move = scan.nextLine();
+		move = scan.nextLine().toUpperCase().trim();
 			if(move.equals("")) {
 				tuna.changeX(tuna.getX());
 				tuna.changeY(tuna.getY());
